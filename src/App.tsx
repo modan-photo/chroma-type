@@ -1,7 +1,7 @@
 function App() {
   return (
     <>
-      Chroma Type
+        Chroma Type
     </>
   )
 }
