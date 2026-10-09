@@ -1,0 +1,226 @@
+
+/* ===== 全屏页面 ===== */
+.page {
+  position: relative;
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+
+  margin: 0;
+  padding: 0;
+
+  overflow: hidden;
+  background: #f7f7f7;
+}
+
+/* 避免全局样式影响组件内部盒模型 */
+.page *,
+.page *::before,
+.page *::after {
+  box-sizing: border-box;
+}
+
+/* ===== 整个屏幕作为构图区域 ===== */
+.composition {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  isolation: isolate;
+}
+
+/* ===== 全屏网格 ===== */
+.matrix {
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(var(--cols), minmax(0, 1fr));
+
+  grid-template-rows:
+    repeat(var(--rows), minmax(0, 1fr));
+
+  gap: var(--gap);
+}
+
+/* ===== 彩虹色块 ===== */
+.colorBlock {
+  min-width: 0;
+  min-height: 0;
+  border-radius: 25%;
+
+  transition:
+    transform 250ms ease,
+    filter 250ms ease;
+}
+
+.colorBlock:hover {
+  transform: scale(1.12);
+  filter: saturate(1.4);
+}
+
+/* ===== ASCII 字符 ===== */
+.asciiCell {
+  min-width: 0;
+  min-height: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.asciiChar {
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1;
+  white-space: nowrap;
+
+  transition: transform 250ms ease;
+}
+
+.asciiChar:hover {
+  transform: scale(1.2);
+}
+
+/* ===== 标题覆盖层 ===== */
+.headingGroup {
+  position: absolute;
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: clamp(5px, 0.7vw, 12px);
+  padding: clamp(10px, 1.5vw, 22px);
+
+  background: rgba(247, 247, 247, 0.86);
+  border-radius: 5px;
+
+  pointer-events: none;
+}
+
+/* ===== 标题分类标签 ===== */
+.eyebrow {
+  font-family: "Courier New", monospace;
+  font-size: clamp(8px, 0.7vw, 11px);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: #555;
+}
+
+/* ===== 主标题 ===== */
+.displayTitle {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: clamp(30px, 5.6vw, 90px);
+  line-height: 0.95;
+
+  white-space: nowrap;
+}
+
+/* ===== 左上 Chroma ===== */
+.chromaHeading {
+  top: 29%;
+  left: 19%;
+  align-items: flex-start;
+}
+
+.chromaText {
+  font-weight: 900;
+  letter-spacing: -0.075em;
+
+  background: linear-gradient(
+    100deg,
+    #fa5577 0%,
+    #e8a23d 30%,
+    #31bfa1 60%,
+    #5368e8 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ===== 右下 Typeface ===== */
+.typefaceHeading {
+  right: 14%;
+  bottom: 23%;
+  align-items: flex-end;
+}
+
+.typefaceText {
+  font-weight: 800;
+  letter-spacing: -0.065em;
+
+  background: linear-gradient(
+    90deg,
+    #999 0%,
+    #666 40%,
+    #161616 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ===== 标题装饰元素 ===== */
+.headingRule {
+  width: 100%;
+  height: 1px;
+  background: rgba(50, 50, 50, 0.35);
+}
+
+.descriptor {
+  font-family: "Courier New", monospace;
+  font-size: clamp(7px, 0.65vw, 10px);
+  letter-spacing: 0.12em;
+  color: #555;
+}
+
+/* ===== 移动端适配 ===== */
+@media (max-width: 600px) {
+  .matrix {
+    gap: 2px;
+  }
+
+  .displayTitle {
+    font-size: clamp(20px, 6vw, 36px);
+  }
+
+  .headingGroup {
+    padding: 8px;
+    gap: 4px;
+  }
+
+  .chromaHeading {
+    top: 25%;
+    left: 15%;
+  }
+
+  .typefaceHeading {
+    right: 10%;
+    bottom: 19%;
+  }
+
+  .eyebrow {
+    font-size: 7px;
+  }
+
+  .descriptor {
+    font-size: 6px;
+    letter-spacing: 0.04em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .colorBlock,
+  .asciiChar {
+    transition: none;
+  }
+}
